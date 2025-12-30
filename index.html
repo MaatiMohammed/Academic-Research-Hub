@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Academic Research Hub</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-body: #f8fafc;
+        --bg-card: #ffffff;
+        --text-primary: #0f172a;
+        --text-secondary: #64748b;
+        --border-color: #e2e8f0;
+        --primary-accent: #8b5cf6;
+        --secondary-accent: #06b6d4;
+        --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --card-hover-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+          0 8px 10px -6px rgb(0 0 0 / 0.1);
+        --transition-speed: 0.3s;
+      }
+
+      [data-theme="dark"] {
+        --bg-body: #0f172a;
+        --bg-card: #1e293b;
+        --text-primary: #f1f5f9;
+        --text-secondary: #94a3b8;
+        --border-color: #334155;
+        --primary-accent: #a78bfa;
+        --secondary-accent: #22d3ee;
+        --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.5);
+        --card-hover-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.5);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--bg-body);
+        color: var(--text-primary);
+        transition: background-color var(--transition-speed),
+          color var(--transition-speed);
+        line-height: 1.5;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        padding: 1.5rem 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: var(--text-primary);
+      }
+
+      .brand-icon {
+        width: 32px;
+        height: 32px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-accent),
+          var(--secondary-accent)
+        );
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+      }
+
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+      }
+
+      .search-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .search-wrapper input {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 2.5rem;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        background-color: var(--bg-card);
+        color: var(--text-primary);
+        font-family: inherit;
+        font-size: 0.95rem;
+        outline: none;
+        transition: all 0.2s ease;
+      }
+
+      .search-wrapper input:focus {
+        border-color: var(--primary-accent);
+        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        fill: var(--text-secondary);
+        pointer-events: none;
+      }
+
+      .filter-group {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .filter-btn {
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--border-color);
+        background: var(--bg-card);
+        color: var(--text-secondary);
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+      }
+
+      .filter-btn:hover {
+        border-color: var(--primary-accent);
+        color: var(--primary-accent);
+      }
+
+      .filter-btn.active {
+        background: var(--primary-accent);
+        color: white;
+        border-color: var(--primary-accent);
+      }
+
+      .theme-toggle {
+        background: none;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 0.75rem;
+        cursor: pointer;
+        background-color: var(--bg-card);
+        color: var(--text-primary);
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .theme-toggle:hover {
+        border-color: var(--text-secondary);
+      }
+
+      main {
+        flex: 1;
+        max-width: 1400px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .section-header {
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid var(--border-color);
+      }
+
+      .section-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .section-count {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        font-weight: 500;
+        padding: 0.25rem 0.75rem;
+        background: var(--bg-body);
+        border-radius: 12px;
+      }
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+        width: 100%;
+        margin-bottom: 2rem;
+      }
+
+      .card {
+        background-color: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 1.5rem;
+        cursor: pointer;
+        transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        text-decoration: none;
+        color: inherit;
+        outline: none;
+      }
+
+      .card:hover,
+      .card:focus {
+        transform: translateY(-4px);
+        box-shadow: var(--card-hover-shadow);
+        border-color: var(--primary-accent);
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .card-logo {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        object-fit: contain;
+        background: var(--bg-body);
+        padding: 0.5rem;
+      }
+
+      .card-info {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+
+      .card-title {
+        font-weight: 600;
+        font-size: 1.15rem;
+        color: var(--text-primary);
+        margin-bottom: 0.25rem;
+      }
+
+      .card-subtitle {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        font-weight: 500;
+      }
+
+      .card-description {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      .card-footer {
+        margin-top: auto;
+        padding-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .card-tags {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .tag {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 6px;
+        background-color: rgba(139, 92, 246, 0.1);
+        color: var(--primary-accent);
+        font-weight: 600;
+      }
+
+      .external-icon {
+        width: 18px;
+        height: 18px;
+        fill: var(--text-secondary);
+        opacity: 0;
+        transform: translateX(-5px);
+        transition: all 0.2s ease;
+      }
+
+      .card:hover .external-icon {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .no-results {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 3rem;
+        color: var(--text-secondary);
+      }
+
+      @media (max-width: 768px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .controls {
+          width: 100%;
+          flex-direction: column;
+        }
+        .search-wrapper {
+          max-width: 100%;
+        }
+        .filter-group {
+          width: 100%;
+        }
+        .grid-container {
+          grid-template-columns: 1fr;
+        }
+      }
+      footer {
+          margin-top: auto;
+          padding: 2rem;
+          border-top: 1px solid var(--border-color);
+          background-color: var(--bg-card);
+        }
+
+        .footer-content {
+          max-width: 1400px;
+          margin: 0 auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
+
+        .footer-content p {
+          color: var(--text-secondary);
+          font-size: 0.9rem;
+          margin: 0;
+        }
+
+        .footer-links {
+          display: flex;
+          gap: 1.5rem;
+          align-items: center;
+        }
+
+        .github-link {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: var(--text-primary);
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 0.9rem;
+          padding: 0.5rem 1rem;
+          border-radius: 8px;
+          border: 1px solid var(--border-color);
+          transition: all 0.2s ease;
+        }
+
+        .github-link:hover {
+          background-color: var(--bg-body);
+          border-color: var(--primary-accent);
+          color: var(--primary-accent);
+          transform: translateY(-2px);
+        }
+
+        .github-link svg {
+          transition: transform 0.2s ease;
+        }
+
+        .github-link:hover svg {
+          transform: rotate(360deg);
+        }
+
+        @media (max-width: 768px) {
+          .footer-content {
+            flex-direction: column;
+            text-align: center;
+          }
+        }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <div class="brand-icon">🎓</div>
+        Academic Research Hub
+      </div>
+      <div class="controls">
+        <div class="search-wrapper">
+          <svg class="search-icon" viewBox="0 0 24 24">
+            <path
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+              stroke="currentColor"
+              stroke-width="2"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search research tools..."
+          />
+        </div>
+        <div class="filter-group">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="productivity">
+            Productivity & Dev
+          </button>
+          <button class="filter-btn" data-filter="general-ai">
+            General AI
+          </button>
+          <button class="filter-btn" data-filter="academic-ai">
+            Academic AI
+          </button>
+          <button class="filter-btn" data-filter="search">Search</button>
+          <button class="filter-btn" data-filter="reference">Reference</button>
+          <button class="filter-btn" data-filter="writing">Writing</button>
+        </div>
+        <button
+          class="theme-toggle"
+          id="themeToggle"
+          aria-label="Toggle Dark Mode"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <div class="grid-container" id="cardGrid">
+        <!-- Cards injected by JS -->
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>Built with ❤️ for researchers</p>
+        <div class="footer-links">
+          <a
+            href="https://github.com/MaatiMohammed"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="github-link"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"
+              />
+            </svg>
+            <span>@MaatiMohammed</span>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const researchTools = [
+        // General AI Tools
+        {
+          id: 101,
+          name: "ChatGPT",
+          subtitle: "Conversational AI Assistant",
+          description:
+            "OpenAI's powerful language model for research assistance, writing, analysis, and brainstorming",
+          url: "https://chat.openai.com/",
+          logo: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
+          category: "general-ai",
+          tags: ["AI", "Writing", "Analysis"],
+        },
+        {
+          id: 102,
+          name: "Claude",
+          subtitle: "Anthropic AI Assistant",
+          description:
+            "Advanced AI with exceptional reasoning for complex analysis, research summaries, and professional writing",
+          url: "https://claude.ai/",
+          logo: "https://cdn.simpleicons.org/anthropic/D97757",
+          category: "general-ai",
+          tags: ["AI", "Analysis", "Safety"],
+        },
+        {
+          id: 103,
+          name: "Gemini",
+          subtitle: "Google AI Assistant",
+          description:
+            "Google's multimodal AI for research, analysis, and integration with Google Workspace",
+          url: "https://gemini.google.com/",
+          logo: "https://cdn.simpleicons.org/googlegemini/4285F4",
+          category: "general-ai",
+          tags: ["AI", "Multimodal", "Google"],
+        },
+        {
+          id: 104,
+          name: "Perplexity AI",
+          subtitle: "AI Search Engine",
+          description:
+            "AI-powered search with real-time citations and source verification for accurate research",
+          url: "https://www.perplexity.ai/",
+          logo: "https://cdn.simpleicons.org/perplexity/3b82f6",
+          category: "general-ai",
+          tags: ["AI", "Search", "Citations"],
+        },
+        {
+          id: 105,
+          name: "Microsoft Copilot",
+          subtitle: "AI-Powered Productivity",
+          description:
+            "Microsoft's AI assistant integrated across Office apps for enhanced productivity and research",
+          url: "https://copilot.microsoft.com/",
+          logo: "https://copilot.microsoft.com/static/cmc/favicon.svg",
+          category: "general-ai",
+          tags: ["AI", "Productivity", "Microsoft"],
+        },
+        {
+          id: 106,
+          name: "Midjourney",
+          subtitle: "AI Image Generation",
+          description:
+            "Create high-quality images and visual content for presentations and research illustrations",
+          url: "https://www.midjourney.com/",
+          logo: "https://www.midjourney.com/public/apple-touch-icon.png",
+          category: "general-ai",
+          tags: ["AI", "Image", "Creative"],
+        },
+        // Academic AI Tools
+        {
+          id: 1,
+          name: "Consensus",
+          subtitle: "AI Research Search Engine",
+          description:
+            "Search over 200M scientific papers with AI-powered analysis and automated summaries",
+          url: "https://consensus.app/",
+          logo: "https://cdn.simpleicons.org/googlescholar/4285F4",
+          category: "academic-ai",
+          tags: ["AI", "Search"],
+        },
+        {
+          id: 2,
+          name: "ChatPDF",
+          subtitle: "Chat with Research Papers",
+          description:
+            "Upload PDFs and have conversations with your research papers using AI",
+          url: "https://www.chatpdf.com/",
+          logo: "https://www.chatpdf.com/icon.svg",
+          category: "academic-ai",
+          tags: ["AI", "PDF"],
+        },
+        {
+          id: 3,
+          name: "Elicit",
+          subtitle: "AI Research Assistant",
+          description:
+            "Automate time-consuming research tasks like summarizing papers and extracting data",
+          url: "https://elicit.com/",
+          logo: "https://framerusercontent.com/images/GWXKVhGBLC34aTLlmLIMsRVb4.png",
+          category: "academic-ai",
+          tags: ["AI", "Analysis"],
+        },
+        {
+          id: 4,
+          name: "Scite",
+          subtitle: "Smart Citations",
+          description:
+            "See how research has been cited with supporting or contrasting evidence",
+          url: "https://scite.ai/",
+          logo: "https://cdn.simpleicons.org/googlescholar/06b6d4",
+          category: "academic-ai",
+          tags: ["AI", "Citations"],
+        },
+        {
+          id: 107,
+          name: "NotebookLM",
+          subtitle: "Google AI Research Tool",
+          description:
+            "AI-powered research assistant that helps synthesize information from your documents",
+          url: "https://notebooklm.google.com/",
+          logo: "https://cdn.simpleicons.org/googlegemini/8E75B2",
+          category: "academic-ai",
+          tags: ["AI", "Research", "Synthesis"],
+        },
+        {
+          id: 108,
+          name: "Jenni AI",
+          subtitle: "AI Writing Workspace",
+          description:
+            "Upload sources, chat with papers, manage citations automatically for academic writing",
+          url: "https://jenni.ai/",
+          logo: "https://framerusercontent.com/images/ERRvDx9910nJtxJpyTOUQlmdTY.png",
+          category: "academic-ai",
+          tags: ["AI", "Writing", "Citations"],
+        },
+        {
+          id: 109,
+          name: "Paperpal",
+          subtitle: "AI Academic Writing",
+          description:
+            "Real-time academic writing suggestions, grammar checking, and language enhancement",
+          url: "https://paperpal.com/",
+          logo: "https://cdn.simpleicons.org/textpattern/06b6d4",
+          category: "academic-ai",
+          tags: ["AI", "Writing", "Grammar"],
+        },
+        // Search Tools
+        {
+          id: 5,
+          name: "Semantic Scholar",
+          subtitle: "AI-Powered Search",
+          description:
+            "Free AI research tool from Allen Institute covering 200M+ papers across all disciplines",
+          url: "https://www.semanticscholar.org/",
+          logo: "https://cdn.simpleicons.org/semanticscholar/1857B6",
+          category: "search",
+          tags: ["Search", "Free"],
+        },
+        {
+          id: 6,
+          name: "Connected Papers",
+          subtitle: "Visual Paper Discovery",
+          description:
+            "Explore academic papers through interactive visual graphs of citations",
+          url: "https://www.connectedpapers.com/",
+          logo: "https://cdn.simpleicons.org/graphql/E10098",
+          category: "search",
+          tags: ["Search", "Visual"],
+        },
+        {
+          id: 7,
+          name: "arXiv",
+          subtitle: "Open-Access Archive",
+          description:
+            "Free distribution service for scholarly articles in STEM and related fields",
+          url: "https://arxiv.org/",
+          logo: "https://cdn.simpleicons.org/arxiv/B31B1B",
+          category: "search",
+          tags: ["Search", "Open Access"],
+        },
+        {
+          id: 8,
+          name: "Google Scholar",
+          subtitle: "Academic Search Engine",
+          description:
+            "Search scholarly literature across disciplines and sources",
+          url: "https://scholar.google.com/",
+          logo: "https://cdn.simpleicons.org/googlescholar/4285F4",
+          category: "search",
+          tags: ["Search"],
+        },
+        {
+          id: 9,
+          name: "ResearchGate",
+          subtitle: "Research Network",
+          description:
+            "Connect with researchers and access millions of research papers",
+          url: "https://www.researchgate.net/",
+          logo: "https://cdn.simpleicons.org/researchgate/00CCBB",
+          category: "search",
+          tags: ["Network", "Search"],
+        },
+        {
+          id: 10,
+          name: "PubMed",
+          subtitle: "Biomedical Database",
+          description:
+            "Free search engine for biomedical and life sciences literature",
+          url: "https://pubmed.ncbi.nlm.nih.gov/",
+          logo: "https://cdn.simpleicons.org/pubmed/326599",
+          category: "search",
+          tags: ["Search", "Medicine"],
+        },
+        {
+          id: 17,
+          name: "ScienceDirect",
+          subtitle: "Scientific Database",
+          description:
+            "Leading platform for peer-reviewed scientific, technical and medical content",
+          url: "https://www.sciencedirect.com/",
+          logo: "https://cdn.simpleicons.org/elsevier/FF6C00",
+          category: "search",
+          tags: ["Search", "Database"],
+        },
+        {
+          id: 18,
+          name: "IEEE Xplore",
+          subtitle: "Engineering Library",
+          description:
+            "Digital library for technical literature in engineering and technology",
+          url: "https://ieeexplore.ieee.org/",
+          logo: "https://cdn.simpleicons.org/ieee/00629B",
+          category: "search",
+          tags: ["Search", "Engineering"],
+        },
+        {
+          id: 19,
+          name: "ACL Anthology",
+          subtitle: "Computational Linguistics",
+          description:
+            "Digital archive of research papers in computational linguistics and NLP",
+          url: "https://aclanthology.org/",
+          logo: "https://cdn.simpleicons.org/artificial-intelligence/06b6d4",
+          category: "search",
+          tags: ["Search", "NLP"],
+        },
+        {
+          id: 20,
+          name: "Frontiers",
+          subtitle: "Open Access Journals",
+          description:
+            "Open-access publisher of peer-reviewed articles across scientific disciplines",
+          url: "https://www.frontiersin.org/",
+          logo: "https://cdn.simpleicons.org/frontiersin/ED8B00",
+          category: "search",
+          tags: ["Search", "Open Access"],
+        },
+        // Reference Management
+        {
+          id: 11,
+          name: "Zotero",
+          subtitle: "Reference Manager",
+          description:
+            "Free, open-source tool to collect, organize, and cite research sources",
+          url: "https://www.zotero.org/",
+          logo: "https://cdn.simpleicons.org/zotero/CC2936",
+          category: "reference",
+          tags: ["References", "Free"],
+        },
+        {
+          id: 12,
+          name: "Mendeley",
+          subtitle: "Reference Management",
+          description:
+            "Organize research, collaborate online, discover latest research",
+          url: "https://www.mendeley.com/",
+          logo: "https://cdn.simpleicons.org/mendeley/9D1620",
+          category: "reference",
+          tags: ["References"],
+        },
+        // Writing Tools
+        {
+          id: 13,
+          name: "Overleaf",
+          subtitle: "Online LaTeX Editor",
+          description:
+            "Collaborative LaTeX editor for writing, editing and publishing academic papers",
+          url: "https://www.overleaf.com/",
+          logo: "https://cdn.simpleicons.org/overleaf/47A141",
+          category: "writing",
+          tags: ["Writing", "LaTeX"],
+        },
+        {
+          id: 14,
+          name: "Grammarly",
+          subtitle: "Writing Assistant",
+          description:
+            "AI-powered writing assistant for clarity, grammar, and style improvements",
+          url: "https://www.grammarly.com/",
+          logo: "https://cdn.simpleicons.org/grammarly/15C39A",
+          category: "writing",
+          tags: ["Writing", "AI"],
+        },
+        {
+          id: 15,
+          name: "Notion",
+          subtitle: "Research Workspace",
+          description:
+            "All-in-one workspace for notes, tasks, wikis, and research organization",
+          url: "https://www.notion.so/",
+          logo: "https://cdn.simpleicons.org/notion/000000",
+          category: "writing",
+          tags: ["Notes", "Organization"],
+        },
+        {
+          id: 16,
+          name: "Obsidian",
+          subtitle: "Knowledge Base",
+          description:
+            "Powerful knowledge base that works on local Markdown files",
+          url: "https://obsidian.md/",
+          logo: "https://cdn.simpleicons.org/obsidian/7C3AED",
+          category: "writing",
+          tags: ["Notes", "Local"],
+        },
+        // Productivity & Development Tools
+        {
+          id: 201,
+          name: "Gmail",
+          subtitle: "Email Management",
+          description:
+            "Google's powerful email service with smart features, filters, and unlimited storage",
+          url: "https://mail.google.com/",
+          logo: "https://cdn.simpleicons.org/gmail/EA4335",
+          category: "productivity",
+          tags: ["Email", "Google"],
+        },
+        {
+          id: 205,
+          name: "GitHub",
+          subtitle: "Code Hosting Platform",
+          description:
+            "Version control and collaboration platform for researchers sharing code and datasets",
+          url: "https://github.com/",
+          logo: "https://cdn.simpleicons.org/github/3b82f6",
+          category: "productivity",
+          tags: ["Code", "Version Control"],
+        },
+        {
+          id: 206,
+          name: "Hugging Face",
+          subtitle: "ML Model Hub",
+          description:
+            "Platform for sharing and collaborating on machine learning models and datasets",
+          url: "https://huggingface.co/",
+          logo: "https://cdn.simpleicons.org/huggingface/FFD21E",
+          category: "productivity",
+          tags: ["ML", "Models"],
+        },
+        {
+          id: 207,
+          name: "Kaggle",
+          subtitle: "Data Science Platform",
+          description:
+            "Community platform for data science competitions, datasets, and Jupyter notebooks",
+          url: "https://www.kaggle.com/",
+          logo: "https://cdn.simpleicons.org/kaggle/20BEFF",
+          category: "productivity",
+          tags: ["Data Science", "Notebooks"],
+        },
+        {
+          id: 212,
+          name: "Figma",
+          subtitle: "Design & Prototyping",
+          description:
+            "Collaborative design tool for creating research diagrams, presentations, and visuals",
+          url: "https://www.figma.com/",
+          logo: "https://cdn.simpleicons.org/figma/F24E1E",
+          category: "productivity",
+          tags: ["Design", "Collaboration"],
+        },
+        {
+          id: 213,
+          name: "Gamma",
+          subtitle: "AI Presentation Maker",
+          description:
+            "Create stunning presentations, documents, and websites with AI—no design skills required",
+          url: "https://gamma.app/",
+          logo: "https://static.gamma.app/favicons/favicon_dark.svg",
+          category: "productivity",
+          tags: ["Presentations", "AI", "Design"],
+        },
+        {
+          id: 214,
+          name: "Canva",
+          subtitle: "Graphic Design Platform",
+          description:
+            "AI-powered design tool for creating presentations, social media graphics, posters, and more",
+          url: "https://www.canva.com/",
+          logo: "https://static.canva.com/domain-assets/canva/static/images/favicon-1.ico",
+          category: "productivity",
+          tags: ["Design", "Graphics", "AI"],
+        },
+
+        {
+          id: 202,
+          name: "Google Drive",
+          subtitle: "Cloud Storage",
+          description:
+            "Store and share files with 15GB free storage integrated with Google Workspace",
+          url: "https://drive.google.com/",
+          logo: "https://cdn.simpleicons.org/googledrive/4285F4",
+          category: "productivity",
+          tags: ["Storage", "Cloud"],
+        },
+        {
+          id: 203,
+          name: "Google Sheets",
+          subtitle: "Online Spreadsheets",
+          description:
+            "Collaborative spreadsheet tool for data analysis, calculations, and visualization",
+          url: "https://sheets.google.com/",
+          logo: "https://cdn.simpleicons.org/googlesheets/34A853",
+          category: "productivity",
+          tags: ["Spreadsheets", "Data"],
+        },
+        {
+          id: 204,
+          name: "Google Docs",
+          subtitle: "Document Editor",
+          description:
+            "Create and collaborate on documents in real-time with powerful editing features",
+          url: "https://docs.google.com/",
+          logo: "https://cdn.simpleicons.org/googledocs/4285F4",
+          category: "productivity",
+          tags: ["Documents", "Writing"],
+        },
+      ];
+
+      const grid = document.getElementById("cardGrid");
+      const searchInput = document.getElementById("searchInput");
+      const themeToggle = document.getElementById("themeToggle");
+      const filterBtns = document.querySelectorAll(".filter-btn");
+
+      let currentFilter = "all";
+
+      function renderCards(searchText = "") {
+        grid.innerHTML = "";
+
+        const filtered = researchTools.filter((tool) => {
+          const matchesSearch =
+            tool.name.toLowerCase().includes(searchText.toLowerCase()) ||
+            tool.subtitle.toLowerCase().includes(searchText.toLowerCase()) ||
+            tool.description.toLowerCase().includes(searchText.toLowerCase());
+          const matchesFilter =
+            currentFilter === "all" || tool.category === currentFilter;
+          return matchesSearch && matchesFilter;
+        });
+
+        if (filtered.length === 0) {
+          grid.innerHTML =
+            '<div class="no-results">No research tools found matching your criteria.</div>';
+          return;
+        }
+
+        filtered.forEach((tool) => {
+          const card = document.createElement("a");
+          card.className = "card";
+          card.href = tool.url;
+          card.target = "_blank";
+          card.rel = "noopener noreferrer";
+          card.tabIndex = 0;
+
+          card.innerHTML = `
+                    <div class="card-header">
+                        <img src="${tool.logo}" alt="${
+            tool.name
+          } Logo" class="card-logo" onerror="this.style.display='none'">
+                        <div class="card-info">
+                            <div class="card-title">${tool.name}</div>
+                            <div class="card-subtitle">${tool.subtitle}</div>
+                        </div>
+                    </div>
+                    <div class="card-description">${tool.description}</div>
+                    <div class="card-footer">
+                        <div class="card-tags">
+                            ${tool.tags
+                              .map((tag) => `<span class="tag">${tag}</span>`)
+                              .join("")}
+                        </div>
+                        <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </div>
+                `;
+
+          grid.appendChild(card);
+        });
+      }
+
+      searchInput.addEventListener("input", (e) => {
+        renderCards(e.target.value);
+      });
+
+      filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          filterBtns.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentFilter = btn.dataset.filter;
+          renderCards(searchInput.value);
+        });
+      });
+
+      themeToggle.addEventListener("click", () => {
+        const html = document.documentElement;
+        const currentTheme = html.getAttribute("data-theme");
+        const newTheme = currentTheme === "light" ? "dark" : "light";
+        html.setAttribute("data-theme", newTheme);
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "/" && document.activeElement !== searchInput) {
+          e.preventDefault();
+          searchInput.focus();
+        }
+      });
+
+      renderCards();
+    </script>
+  </body>
+</html>
